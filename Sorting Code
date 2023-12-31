@@ -1,0 +1,68 @@
+public class Main {
+ public static void main(String[] args) {
+    System.out.println("Hello World");
+    int[] arr = {4,3,2,1};
+    //  selectionSort(arr);
+    //  bubbleSort(arr);
+        insertionSort(arr); 
+}
+
+ public static void printArr(int arr[]) {
+    for (int i = 0; i < arr.length; i++){
+      System.out.print(arr[i] + " ");
+    }
+  }
+
+ public static void selectionSort(int arr[]) {
+    for (int i = 0; i < arr.length - 1; i++)    {
+      int minele = i;
+      for (int j = i + 1; j < arr.length; j++)      {
+        if (arr[minele] > arr[j])
+        {
+          minele = j;
+        }
+      }
+      int temp = arr[minele];
+      arr[minele] = arr[i];
+      arr[i] = temp;
+    }
+    printArr(arr);
+  }
+
+  //  7 2 5  
+ public static void bubbleSort(int arr[]) {
+    for (int i = 0; i < arr.length - 1; i++)
+    {
+      int maxele = i;
+      for (int j = i + 1; j < arr.length; j++)
+      {
+        if (arr[maxele] > arr[j]){
+          int temp = arr[maxele];
+          arr[maxele] = arr[j];
+          arr[j] = temp;
+        }
+      }
+    }
+    printArr(arr);
+  }
+  
+  // 5 2 1 3   1 2 5 5
+   public static void insertionSort(int arr[]) {
+    for (int i = 1; i < arr.length; i++)
+    {
+      int currentEle  = arr[i];    
+     int j = i - 1;
+    //   while(j >= 0 && currentEle < arr[j]){
+    //       arr[j+1] = arr[j]; 
+    //       j--;
+    //   } 
+        for (j = i - 1; j >= 0; j--)
+      {
+         arr[j+1] = arr[j]; 
+      }
+      arr[j+1] = currentEle; 
+   
+    }
+    printArr(arr);
+  }
+}

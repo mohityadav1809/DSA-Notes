@@ -1,10 +1,13 @@
 public class Main {
  public static void main(String[] args) {
     System.out.println("Hello World");
-    int[] arr = {4,3,2,1};
+    int[] arr = {4,9,434,0};
     //  selectionSort(arr);
     //  bubbleSort(arr);
-        insertionSort(arr); 
+    //  insertionSort(arr); 
+    //    quickSort(arr,0,arr.length -1);
+        mergeSort(arr,0,arr.length -1);
+        printArr(arr);
 }
 
  public static void printArr(int arr[]) {
@@ -29,7 +32,6 @@ public class Main {
     printArr(arr);
   }
 
-  //  7 2 5  
  public static void bubbleSort(int arr[]) {
     for (int i = 0; i < arr.length - 1; i++)
     {
@@ -46,23 +48,80 @@ public class Main {
     printArr(arr);
   }
   
-  // 5 2 1 3   1 2 5 5
-   public static void insertionSort(int arr[]) {
+ public static void insertionSort(int arr[]) {
     for (int i = 1; i < arr.length; i++)
     {
       int currentEle  = arr[i];    
-     int j = i - 1;
-    //   while(j >= 0 && currentEle < arr[j]){
-    //       arr[j+1] = arr[j]; 
-    //       j--;
-    //   } 
-        for (j = i - 1; j >= 0; j--)
-      {
-         arr[j+1] = arr[j]; 
-      }
+      int j = i - 1;
+      while(j >= 0 && currentEle < arr[j]){
+          arr[j+1] = arr[j]; 
+          j--;
+      } 
       arr[j+1] = currentEle; 
    
     }
     printArr(arr);
   }
+  
+ public static void quickSort(int arr[], int low, int high) {
+    if(low < high){
+    int pivotIdx = findPivot(arr, low, high);
+    quickSort(arr,low,pivotIdx-1);
+    quickSort(arr,pivotIdx+1,high);
+    }
+    
+  }
+  
+ public static int findPivot(int arr[], int low, int high) {
+    int pivotEle = arr[high];
+    int i = low-1;
+    for(int j= low; j < high; j++){
+        if(arr[j] < pivotEle){
+            i++;
+            int temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+        }
+    }
+    i++;
+    int temp = arr[i];
+    arr[i] = pivotEle;
+    arr[high] = temp;
+    return i;
+  }
+  
+ public static void mergeSort(int arr[], int low, int high) {
+     //base case
+     if(low >= high) {
+         return;
+     }
+     int median = (high-low)/2;
+     mergeSort(arr, low, median);
+     mergeSort(arr, median + 1, high);
+     mergeArrays(arr, low, median, high);
 }
+
+ public static void mergeArrays(int arr[], int low, int median, int high) {
+    int[] tempArr = new int[high - low + 1];
+    int k = 0; int idx1 = low; int idx2 = median+1;
+    while(idx1 <= median && idx2 <= high){
+        if(arr[idx1] <= arr[idx2]){
+            arr[k++] = arr[idx1++];
+        }
+        else{
+            arr[k++] = arr[idx2++];
+        }
+    } 
+    while(idx1 <= median){
+        arr[k++] = arr[idx1++];
+    }
+    while(idx2 <= high){
+        arr[k++] = arr[idx2++];
+    }
+    int j = low;
+    for(int i = 0; j < tempArr.length ; i++){
+        arr[j++] = tempArr[i];
+    }
+ }
+}
+

@@ -1,0 +1,44 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solutions/4548062/2-best-approach-to-solve-this-problem
+
+
+Time complexity:
+O(n2) when using 2 for loops -- TLE error
+O(n) when using 1 loop
+Space is constant in both approaches
+
+Space complexity:O(1)
+
+
+class Solution {
+public int maxProfit(int[] prices) {
+        int lsf = Integer.MAX_VALUE; // least so far
+        int op = 0; // overall profit
+        int pist = 0; // profit if sold today
+
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < lsf) { // if we found new buy value which is more smaller then previous one
+                lsf = prices[i]; // update our least so far
+            }
+            pist = prices[i] - lsf; // calculating profit if sold today by, Buy - sell
+            if (op < pist) { // if pist is more then our previous overall profit
+                op = pist; // update overall profit
+            }
+        }
+        return op; // return op
+
+    }
+}
+// class Solution {
+// public int maxProfit(int[] prices) {
+// int maxProfit = 0;
+// for (int buyprice = 0; buyprice < prices.length - 1; buyprice++) {
+// for (int sellprice = buyprice + 1; sellprice < prices.length; sellprice++) {
+// int currentProfit = prices[sellprice] - prices[buyprice];
+// if (currentProfit > maxProfit) {
+// maxProfit = currentProfit;
+// }
+// }
+// }
+// return maxProfit;
+// }
+// }
